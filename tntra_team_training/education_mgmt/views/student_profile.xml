@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="student_profile_form_view" model="ir.ui.view">
+            <field name="name">student.profile.form.view</field>
+            <field name="model">student.profile</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <field name="state" widget="statusbar" statusbar_visible="initial,pending_approval,student"/>
+                            <button name="send_approval" string="send for Approval" states="initial" class="oe_highlights" type="object"/>
+                            <button name="make_student" string="Approve" states="pending_approval" class="oe_highlights" type="object"/>
+                            <button name="leave_school" string="leave" states="student" class="oe_highlights" type="object"/>
+                            <button name="reset" string="reset" states="not_a_student,pending_approval,student" class="oe_highlights" type="object"/>
+                        </header>
+                        <group>
+                            <group string="Personal Info" name="personal_detail">
+                                <field name="name" string = "Student name" required="1"  placeholder="Enter Name"/>
+                                <field name="age"/>
+                                <field name="dob"/>
+                                <field name="height"/>
+                                <field name="weight"/>
+                                <field name="gender" widget="radio"/>
+                                <field name="department"/>
+                                <field name="is_active"/>
+                            </group>
+                            <group string="Contact Info" name="contact_detail">
+                                <field name="contact"/>
+                                <field name="email" widget="email"/>
+                                <field name="hobbies_ids" widget="many2many_tags"/>
+                                <field name="subjects"/>
+                                <field name="fees"/>
+
+                            </group>
+                            <group string="address" name="Address">
+                                <field name="city"/>
+                                <field name="state_id" options="{'no_create':True ,'no_open':True}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="degree" string="Degree">
+                                <field name="degree_ids">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="university"/>
+                                        <field name="percentage"/>
+                                        <field name="grade"/>
+                                        <field name="certificate"/>
+                                    </tree>
+<!--                                    <form>-->
+<!--                                        <group>-->
+<!--                                            <field name="name"/>-->
+<!--                                            <field name="university"/>-->
+<!--                                            <field name="percentage"/>-->
+<!--                                            <field name="grade"/>-->
+<!--                                        </group>-->
+<!--                                    </form>-->
+                                </field>
+                            </page>
+                        </notebook>
+
+                        <separator string="Note"/>
+                            <field name="note"/>
+                        <separator string="Comment"/>
+                            <field name="comment"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="student_profile_tree_view" model="ir.ui.view">
+            <field name="name">student.profile.tree.view</field>
+            <field name="model">student.profile</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="contact"/>
+                    <field name="dob"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="student_profile_search_view" model="ir.ui.view">
+            <field name="name">student.profile.search.view</field>
+            <field name="model">student.profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="contact"/>
+
+
+                    <filter name="check_new" string="New" domain="[('state','=','initial')]"/>
+                    <filter name="check_pending" string="pending for approval" domain="[('state','=','pending_approval')]"/>
+                    <filter name="check_student" string="student" domain="[('state','=','student')]"/>
+                    <filter name="check_out_school" string="left" domain="[('state','=','not_a_student')]"/>
+
+                </search>
+            </field>
+        </record>
+
+
+
+        <record id="action_student_profile_tree_view" model="ir.actions.act_window">
+            <field name="name">student Profile</field>
+            <field name="res_model">student.profile</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="sunrise_main_menu" name="Sunrise" sequence="1"/>
+        <menuitem id="student_profile_menu" parent="sunrise_main_menu" name="Student Profile"
+                  sequence="10" action="action_student_profile_tree_view"/>
+
+        <!-- Student state form view -->
+           <record id="student_state_form_view" model="ir.ui.view">
+            <field name="name">student.state.form.view</field>
+            <field name="model">student.state</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="student_state_tree_view" model="ir.ui.view">
+            <field name="name">student.state.tree.view</field>
+            <field name="model">student.state</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_student_state_tree_view" model="ir.actions.act_window">
+            <field name="name">student State</field>
+            <field name="res_model">student.state</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="state_configure_menu" parent="sunrise_main_menu" name="State configurtion" sequence="100"/>
+        <menuitem id="student_state_menu" parent="state_configure_menu" name="State"
+                  sequence="10" action="action_student_state_tree_view"/>
+
+    </data>
+</odoo>

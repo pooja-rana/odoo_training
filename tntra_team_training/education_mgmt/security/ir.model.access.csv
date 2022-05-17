@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_student_profile_user,student_profile_access,model_student_profile,,1,1,1,1
+access_student_state_user,student_state_access,model_student_state,,1,1,1,1
+access_student_degree_user,student_degree_access,model_student_degree,,1,1,1,1
+access_student_hobbies_user,student_hobbies_access,model_student_hobbies,,1,1,1,1
