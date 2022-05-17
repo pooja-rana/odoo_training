@@ -84,8 +84,6 @@
                 </tree>
             </field>
         </record>
-
-
         <record id="student_profile_search_view" model="ir.ui.view">
             <field name="name">student.profile.search.view</field>
             <field name="model">student.profile</field>
