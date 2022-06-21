@@ -15,11 +15,11 @@ class StudentProfile(models.Model):
     email = fields.Char("Email")
     is_active = fields.Boolean(default=False, help="Set active to false to hide the Account Tag without removing it.")
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
-    department = fields.Selection([('be', 'BE'), ('me', 'ME')],
+    department = fields.Selection([('be', 'BE'), ('me', 'ME'),('diploma','Diploma')],
                                   required=True)
 
     state = fields.Selection([('initial', 'new'), ('pending_approval', 'Pending For Approval'), ('student', 'Student'),
-                              ('not_a_student', 'Left')], string='Status', defult='initial')
+                              ('not_a_student', 'Left')], string='State', default='initial')
 
     note = fields.Char("Note")
     comment = fields.Html("Comment")
@@ -32,7 +32,7 @@ class StudentProfile(models.Model):
 
     subjects = fields.Integer(string="Subject")
 
-    fees = fields.Integer(compute="_compute_total_fees" ,store=True)
+    fees = fields.Integer(compute="_compute_total_fees", store=True)
 
     @api.depends("subjects")
     def _compute_total_fees(self):

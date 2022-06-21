@@ -11,7 +11,8 @@
                             <field name="state" widget="statusbar" statusbar_visible="initial,pending_approval,student"/>
                             <button name="send_approval" string="send for Approval" states="initial" class="oe_highlights" type="object"/>
                             <button name="make_student" string="Approve" states="pending_approval" class="oe_highlights" type="object"/>
-                            <button name="leave_school" string="leave" states="student" class="oe_highlights" type="object"/>
+                            <button name="leave_school" string="leave" states="student" class="oe_highlights" type="object"
+                            confirm="Are You Sure Want leave school? "/>
                             <button name="reset" string="reset" states="not_a_student,pending_approval,student" class="oe_highlights" type="object"/>
                         </header>
                         <group>
@@ -44,7 +45,9 @@
                                 <field name="degree_ids">
                                     <tree editable="bottom">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="name"/>
+                                        <field name="student_id"/>
+                                        <field name="degree"/>
+                                        <field name="gender"/>
                                         <field name="university"/>
                                         <field name="percentage"/>
                                         <field name="grade"/>
@@ -77,10 +80,9 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="age"/>
                     <field name="contact"/>
-                    <field name="dob"/>
                     <field name="is_active"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -92,13 +94,15 @@
                     <field name="name"/>
                     <field name="age"/>
                     <field name="contact"/>
-
-
                     <filter name="check_new" string="New" domain="[('state','=','initial')]"/>
                     <filter name="check_pending" string="pending for approval" domain="[('state','=','pending_approval')]"/>
                     <filter name="check_student" string="student" domain="[('state','=','student')]"/>
                     <filter name="check_out_school" string="left" domain="[('state','=','not_a_student')]"/>
 
+                    <group expand="1" string="Group By">
+                        <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
+                        <filter string="Department" name="department" context="{'group_by': 'department'}"/>
+                    </group>
                 </search>
             </field>
         </record>
@@ -108,15 +112,19 @@
         <record id="action_student_profile_tree_view" model="ir.actions.act_window">
             <field name="name">student Profile</field>
             <field name="res_model">student.profile</field>
+<!--            <field name="context">{'search_default_gender':1}</field>-->
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="sunrise_main_menu" name="Sunrise" sequence="1"/>
+        <menuitem id="sunrise_main_menu"
+                  name="Sunrise"
+                  web_icon="education_mgmt,static/description/icon.png"
+                  sequence="1"/>
         <menuitem id="student_profile_menu" parent="sunrise_main_menu" name="Student Profile"
                   sequence="10" action="action_student_profile_tree_view"/>
 
         <!-- Student state form view -->
-           <record id="student_state_form_view" model="ir.ui.view">
+        <record id="student_state_form_view" model="ir.ui.view">
             <field name="name">student.state.form.view</field>
             <field name="model">student.state</field>
             <field name="arch" type="xml">
@@ -149,7 +157,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="state_configure_menu" parent="sunrise_main_menu" name="State configurtion" sequence="100"/>
+            <menuitem id="state_configure_menu" parent="sunrise_main_menu" name="State configuration" sequence="100"/>
         <menuitem id="student_state_menu" parent="state_configure_menu" name="State"
                   sequence="10" action="action_student_state_tree_view"/>
 

@@ -7,7 +7,7 @@
     'website' : 'https://www.tntra.io',
     'depends' : ['base'],
     'data': [
-        'views/student_profile.xml',
+        'views/Student_profile.xml',
         'security/ir.model.access.csv',
 
     ],

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_patient_operation_form" model="ir.ui.view">
+        <field name="name">patient.operation.form</field>
+        <field name="model">patient.operation</field>
+        <field name="arch" type="xml">
+              <form>
+                  <sheet>
+                      <group>
+                          <field name="operation_name"/>
+                          <field name="doctor_id" widget="many2one_avatar_user"/>
+                          <field name="reference_record"/>
+                      </group>
+                  </sheet>
+              </form>
+        </field>
+        </record>
+
+        <record id="patient_operation_tree_view" model="ir.ui.view">
+            <field name="name">patient.operation.tree.view</field>
+            <field name="model">patient.operation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="operation_name"/>
+                    <field name="doctor_id" widget="many2one_avatar_user"/>
+                    <field name="reference_record"/>
+                </tree>
+            </field>
+        </record>
+
+
+         <record id="action_patient_operation_view" model="ir.actions.act_window">
+            <field name="name">PatientOperation</field>
+            <field name="res_model">patient.operation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_patient_operation"
+                  name="Operation"
+                  parent="hospital_main_menu"
+                  parent = "hospital_main_menu"
+                <record id="action_patient_operation_view" model="ir.action.act_window">
+                <field name="name">PatientOperation</field>
+                <field name="res_model">patient.operation</field>
+                <field name="view_mode">tree,form</field>
+                  sequence="400"/>
+
+
+        <menuitem id="patients_operation"
+                  name="PatientOperation"
+                  parent="menu_patient_operation"
+                  action="action_patient_operation_view"
+                  sequence="20"/>
+</odoo>

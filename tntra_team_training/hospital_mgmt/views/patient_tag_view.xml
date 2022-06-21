@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_patient_tag_form" model="ir.ui.view">
+        <field name="name">patient.tag.form</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+              <form>
+                  <sheet>
+                      <widget name="web_ribbon" title="DONE" bg_color="bg-success"
+                      attrs="{'invisible':[('active','=',True)]}"/>
+                      <group>
+                          <field name="name"/>
+                          <!--here you can also apply widget="color"-->
+                          <field name="color" widget="color_picker"/>
+                          <field name="active" widget="boolean_toggle"/>
+                      </group>
+                  </sheet>
+              </form>
+        </field>
+        </record>
+
+        <record id="patient_tag_tree_view" model="ir.ui.view">
+            <field name="name">patient.tag.tree.view</field>
+            <field name="model">patient.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color" widget="color_picker"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+
+         <record id="action_patient_tag_view" model="ir.actions.act_window">
+            <field name="name">PatientTag</field>
+            <field name="res_model">patient.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        <menuitem id="menu_patient_tag_root"-->
+<!--              name="PatientTag"-->
+<!--              parent="hospital_main_menu"-->
+<!--              sequence="300"/>-->
+
+<!--         <menuitem id="menu_patient"-->
+<!--              name="PatientTag"-->
+<!--              parent="menu_patient_tag_root"-->
+<!--              action="action_patient_tag_view"-->
+<!--              sequence="10"/>-->
+</odoo>

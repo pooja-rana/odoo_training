@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_patient_form" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+              <form>
+                  <sheet>
+                      <field name="image" widget="image" class="oe_avatar"/>
+                      <group>
+                      <group>
+                            <field name="name" string = "patient name" required="1"  placeholder="Enter Name"/>
+                            <field name="date_of_birth"/>
+                            <field name="age"/>
+                            <field name="appointment_id"/>
+                      </group>
+                      <group>
+                            <field name="ref"/>
+                            <field name="gender" widget="radio"/>
+                            <field name="tags_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                            <field name="active"/>
+                      </group>
+                          <group>
+                              <field name="parents" attrs="{'invisible':[('age','>',18)]}"/>
+                              <field name="marital_status"/>
+                              <field name="partner_name" attrs="{'readonly':[('marital_status','!=','married')],
+                                                                 'required':[('marital_status','=','married')]}"/>
+                          </group>
+                      </group>
+                  </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+        </field>
+        </record>
+patient
+        <record id="hospital_patient_tree_view" model="ir.ui.view">
+            <field name="name">hospital.patient.tree.view</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <tree export_xlsx="0">
+                    <field name="name"/>
+                    <field name="date_of_birth"/>
+                    <field name="age"/>
+                    <field name="ref"/>
+                    <field name="gender"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="hospital_patient_search_view" model="ir.ui.view">
+            <field name="name">hospital.patient.search.view</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="ref"/>
+                    <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                    <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+                    <filter string="Others" name="other" domain="[('gender', '=', 'other')]"/>
+                    <filter string="Archive" name="active" domain="[('active','=', 'False')]"/>
+
+                    <group expand="1" string="Group By">
+                        <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
+                    </group>
+                <searchpanel>
+                    <field name="gender" enable_counters="1"/>
+                </searchpanel>
+                </search>
+            </field>
+        </record>
+
+
+         <record id="action_hospital_patient_view" model="ir.actions.act_window">
+            <field name="name">Patient</field>
+            <field name="res_model">hospital.patient</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        <menuitem id="hospital_main_menu" name="Hospital" sequence="1"/>-->
+<!--        <menuitem id="patient_profiles_menu" parent="hospital_main_menu" name="Patient"-->
+<!--                  sequence="100"/>-->
+
+<!--         <menuitem id="menu_patient"-->
+<!--              name="Patients"-->
+<!--              parent="patient_profiles_menu"-->
+<!--              action="action_hospital_patient_view"-->
+<!--              sequence="10"/>-->
+    </data>
+</odoo>

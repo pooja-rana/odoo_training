@@ -9,7 +9,8 @@ class StudentDegree(models.Model):
     student_id = fields.Many2one('student.profile', "Student")
 
     sequence = fields.Integer("Sequence")
-    name = fields.Char("Name")
+    degree = fields.Char("degree")
+    gender = fields.Selection(related='student_id.gender')
     university = fields.Char("University")
     percentage = fields.Float("Percentage")
     grade = fields.Char("Grade")

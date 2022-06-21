@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <menuitem id="hospital_main_menu"
+                  name="Hospital"
+                  web_icon="hospital_mgmt,static/description/icon.png"
+                  sequence="10"/>
+
+        <menuitem id="patient_profiles_menu"
+                  parent="hospital_main_menu"
+                  name="Patient"
+                  sequence="100"/>
+
+        <menuitem id="menu_patient"
+                  name="Patients"
+                  parent="patient_profiles_menu"
+                  action="action_hospital_patient_view"
+                  sequence="10"/>
+
+        <menuitem id="menu_appointment_root"
+                  name="Appointments"
+                  parent="hospital_main_menu"
+                  sequence="200"/>
+
+        <menuitem id="menu_appointment"
+                  name="Appointment"
+                  parent="menu_appointment_root"
+                  action="action_hospital_appointment_tree_view"
+                  sequence="10"/>
+
+        <menuitem id="menu_cancel_appointment"
+                  name="Cancel Appointment"
+                  parent="menu_appointment_root"
+                  action="action_cancel_appointment_view"
+                  sequence="20"/>
+
+        <menuitem id="menu_patient_tag"
+                  name="PatientTag"
+                  parent="hospital_main_menu"
+                  sequence="300"/>
+
+
+        <menuitem id="patient_tag"
+                  name="Patients"
+                  parent="menu_patient_tag"
+                  action="action_patient_tag_view"
+                  sequence="10"/>
+
+    </data>
+</odoo>
