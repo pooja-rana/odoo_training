@@ -37,12 +37,7 @@
 
         <menuitem id="menu_patient_operation"
                   name="Operation"
-                  parent="hospital_main_menu"
-                  parent = "hospital_main_menu"
-                <record id="action_patient_operation_view" model="ir.action.act_window">
-                <field name="name">PatientOperation</field>
-                <field name="res_model">patient.operation</field>
-                <field name="view_mode">tree,form</field>
+                  parent="hospital_main_menu"z
                   sequence="400"/>
 
 
